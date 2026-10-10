@@ -9,32 +9,26 @@
 
     <section class="add-card">
       <h2>添加笔记</h2>
-
       <input
         v-model="newNote"
         placeholder="输入笔记内容，按回车添加"
         @keyup.enter="addNote"
       />
-
       <div class="options">
         <label><input type="radio" value="高" v-model="level" /> 高</label>
         <label><input type="radio" value="中" v-model="level" /> 中</label>
         <label><input type="radio" value="低" v-model="level" /> 低</label>
-
         <label><input type="checkbox" value="学习" v-model="tags" /> 学习</label>
         <label><input type="checkbox" value="生活" v-model="tags" /> 生活</label>
       </div>
-
       <p class="preview">
         预览：{{ newNote || '（空）' }} | {{ level }} | {{ tags.join('、') || '无标签' }}
       </p>
-
       <button class="add-btn" @click="addNote">添加笔记</button>
     </section>
 
     <section class="list-card">
       <h2>笔记列表</h2>
-
       <div
         v-for="(item, index) in noteList"
         :key="index"
@@ -50,18 +44,22 @@
         </div>
         <button class="del-btn" @click="noteList.splice(index, 1)">删除</button>
       </div>
-
       <p v-if="noteList.length === 0" class="empty">还没有笔记，快来添加一条吧</p>
       <p v-show="noteList.length > 0" class="count">共 {{ noteList.length }} 条笔记</p>
     </section>
+
+    <!-- 冒泡组件在这里！！ -->
+    <hr>
+    <EventLab />
   </div>
 </template>
 
 <script>
+import EventLab from './components/EventLab.vue'
 import NoteCard from './components/NoteCard.vue'
 
 export default {
-  components: { NoteCard },
+  components: { NoteCard, EventLab },
   data() {
     return {
       newNote: '',
@@ -208,17 +206,15 @@ input:focus {
   color: #666;
 }
 
-.High {
+.高 {
   background: #fee2e2;
   border-left: 4px solid #ef4444;
 }
-
-.Middle {
+.中 {
   background: #fef3c7;
   border-left: 4px solid #f59e0b;
 }
-
-.Low {
+.低 {
   background: #d1fae5;
   border-left: 4px solid #10b981;
 }
